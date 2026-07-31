@@ -1503,7 +1503,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
   (function(){
-    emailjs.init('qRT-9BK_OxkWGSFDvjZRm');
+    emailjs.init('YIE4GbJCFTRBs7rLy');
 
     var EMAILJS_SERVICE_ID = 'service_vy3dccn';
     var EMAILJS_CLIENT_TEMPLATE = 'template_i8ofi2a';
@@ -1556,7 +1556,7 @@
       var niceDate = formatDate(form.preferred_date.value);
       var niceTime = formatTime(form.preferred_time.value);
 
-      var clientParams = { to_email: email, name: name, date: niceDate, time: niceTime };
+      var clientParams = { email: email, name: name, date: niceDate, time: niceTime };
       var businessParams = { name: name, email: email, phone: phone, date: niceDate, time: niceTime };
 
       Promise.all([
@@ -1575,7 +1575,8 @@
         console.error('EmailJS error:', err);
         submitBtn.classList.remove('loading');
         submitBtn.disabled = false;
-        status.textContent = "Something went wrong. Please try again.";
+        var detail = (err && (err.text || err.message)) ? (err.text || err.message) : JSON.stringify(err);
+        status.textContent = "Error: " + detail;
         status.classList.add('show','error');
       });
     });
